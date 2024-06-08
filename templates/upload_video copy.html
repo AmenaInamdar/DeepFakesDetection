@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html>
+  <style>
+        .slider-image {
+            max-width: 100%;
+            max-height: 400px; /* Adjust height as needed */
+            margin: auto;
+        }
+    </style>
+    <head>
+
+        <!-- Favicons -->
+        <link href="{{ url_for('static',filename='custom/t-icon.png') }}"
+            rel="icon">
+        <link href="{{ url_for('static',filename='custom/t-icon.png') }}"
+            rel="apple-touch-icon">
+
+        <!-- Google Fonts -->
+        <link
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+            rel="stylesheet">
+
+        <!-- Vendor CSS Files -->
+        <link
+            href="{{ url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css') }}"
+            rel="stylesheet">
+        <link
+            href="{{ url_for('static',filename='vendor/bootstrap-icons/bootstrap-icons.css') }}"
+            rel="stylesheet">
+        <link href="{{ url_for('static',filename='vendor/aos/aos.css') }}"
+            rel="stylesheet">
+        <link
+            href="{{ url_for('static',filename='vendor/remixicon/remixicon.css') }}"
+            rel="stylesheet">
+        <link
+            href="{{ url_for('static',filename='vendor/swiper/swiper-bundle.min.css') }}"
+            rel="stylesheet">
+        <link
+            href="{{ url_for('static',filename='vendor/glightbox/css/glightbox.min.css') }}"
+            rel="stylesheet">
+
+        <!-- Main CSS File -->
+        <link href="{{ url_for('static',filename='css/style.css') }}"
+            rel="stylesheet"> {% block head %} {% endblock %}
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Favicons -->
+        <link href="{{ url_for('static',filename='custom/t-icon.png') }}"
+            rel="icon">
+        <link href="{{ url_for('static',filename='custom/t-icon.png') }}"
+            rel="apple-touch-icon">
+
+        <link href="https://fonts.googleapis.com/css?family=Dosis"
+            rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Gudea"
+            rel="stylesheet">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet">
+
+        <link rel="stylesheet" type="text/css"
+            href="{{ url_for('static',filename='css/hover.css') }}" />
+        <link rel="stylesheet" type="text/css"
+            href="{{ url_for('static',filename='css/animations.css') }}" />
+
+        <link rel="stylesheet" type="text/css"
+            href="{{ url_for('static',filename='css/upload.css') }}" />
+
+        <title> DeepFake Detection </title>
+
+    </head>
+
+    <body>
+
+        <!-- ======= Header ======= -->
+        <header id="header" class="header fixed-top"
+            style="background-color: #fff;">
+            <div
+                class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+                <a href="/" class="logo d-flex align-items-center">
+                    <img
+                        src="{{ url_for('static',filename='custom/logo.png') }}"
+                        alt>
+                    <span>&nbsp;DeepGuard</span>
+                </a>
+
+                <nav id="navbar" class="navbar">
+                    <ul>
+                        <li><a class="nav-link scrollto active"
+                                href="/user">Home</a></li>
+                        <li><a class="nav-link scrollto"
+                                href="#about">About</a></li>
+                        <li><a class="nav-link scrollto"
+                                href="#team">Team</a></li>
+                        <li><a class="getstarted scrollto"
+                                href="login">Logout</a></li>
+                    </ul>
+                    <i class="bi bi-list mobile-nav-toggle"></i>
+                </nav>
+                <!-- .navbar -->
+
+            </div>
+        </header>
+    <h1>Deepfake Detection</h1>
+    <input type="file" id="videoFile" accept=".mp4,.avi,.mov">
+    <button onclick="uploadVideo()">Upload Video</button>
+
+    <div id="result">
+        <!-- Result will be displayed here -->
+    </div>
+
+    <div class="slider">
+        <!-- Fake images slider will be displayed here -->
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        function uploadVideo() {
+            var fileInput = document.getElementById('videoFile');
+            var file = fileInput.files[0];
+            if (!file) {
+                alert('Please select a video file');
+                return;
+            }
+
+            var formData = new FormData();
+            formData.append('video', file);
+
+            fetch('/detect_deepfake', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                var resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = `
+                    <h2>Deepfake Detection Results</h2>
+                    <p>Fake Frame Count: ${data.fake_frame_count}</p>
+                    <p>Real Frame Count: ${data.real_frame_count}</p>
+                    <p>Fake Percentage: ${data.fake_percentage.toFixed(2)}%</p>
+                    <p>Real Percentage: ${data.real_percentage.toFixed(2)}%</p>
+                `;
+
+                var sliderDiv = document.querySelector('.slider');
+                sliderDiv.innerHTML = '';
+                if (data.fake_image_paths.length > 0) {
+                    data.fake_image_paths.forEach(imagePath => {
+                        var imageElement = document.createElement('img');
+                        imageElement.src = '/' + imagePath; // Path to serve fake images
+                        imageElement.classList.add('slider-image');
+                        sliderDiv.appendChild(imageElement);
+                    });
+
+                    $('.slider').slick({
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        arrows: true,
+                        autoplay: true,
+                        autoplaySpeed: 2000
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while processing the video');
+            });
+        }
+    </script>
+</body>
+</html>

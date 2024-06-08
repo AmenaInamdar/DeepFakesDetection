@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+        <!-- Favicons -->
+        <link href="{{ url_for('static',filename='custom/t-icon.png') }}"
+            rel="icon">
+        <link href="{{ url_for('static',filename='custom/t-icon.png') }}"
+            rel="apple-touch-icon">
+
+        <!-- Google Fonts -->
+        <link
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+            rel="stylesheet">
+
+        <!-- Vendor CSS Files -->
+        <link
+            href="{{ url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css') }}"
+            rel="stylesheet">
+        <link
+            href="{{ url_for('static',filename='vendor/bootstrap-icons/bootstrap-icons.css') }}"
+            rel="stylesheet">
+        <link href="{{ url_for('static',filename='vendor/aos/aos.css') }}"
+            rel="stylesheet">
+        <link
+            href="{{ url_for('static',filename='vendor/remixicon/remixicon.css') }}"
+            rel="stylesheet">
+        <link
+            href="{{ url_for('static',filename='vendor/swiper/swiper-bundle.min.css') }}"
+            rel="stylesheet">
+        <link
+            href="{{ url_for('static',filename='vendor/glightbox/css/glightbox.min.css') }}"
+            rel="stylesheet">
+
+        <!-- Main CSS File -->
+        <link href="{{ url_for('static',filename='css/style.css') }}"
+            rel="stylesheet"> {% block head %} {% endblock %}
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Favicons -->
+        <link href="{{ url_for('static',filename='custom/t-icon.png') }}"
+            rel="icon">
+        <link href="{{ url_for('static',filename='custom/t-icon.png') }}"
+            rel="apple-touch-icon">
+
+        <link href="https://fonts.googleapis.com/css?family=Dosis"
+            rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Gudea"
+            rel="stylesheet">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet">
+
+        <link rel="stylesheet" type="text/css"
+            href="{{ url_for('static',filename='css/hover.css') }}" />
+        <link rel="stylesheet" type="text/css"
+            href="{{ url_for('static',filename='css/animations.css') }}" />
+
+        <link rel="stylesheet" type="text/css"
+            href="{{ url_for('static',filename='css/upload.css') }}" />
+
+        <title> DeepFake Detection </title>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+        <style>
+            
+            h1 {
+                text-align: center;
+                color: #ffffff;
+            }
+            #result {
+                 border-radius: 10px;
+                box-shadow: 0 0 10px  #ffffff;
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            #result h2 {
+                color: #ffffff;
+                margin-bottom: 10px;
+            }
+            .result-item {
+                margin-bottom: 10px;
+            }
+            .result-label {
+                font-weight: bold;
+                color: #f2e7e7;
+            }
+            .slider {
+                margin: auto;
+                max-width: 800px;
+            }
+            .slider-image {
+                max-width: 100%;
+                height: auto;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                margin-right: 10px;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <!-- ======= Header ======= -->
+        <header id="header" class="header fixed-top"
+            style="background-color: #fff;">
+            <div
+                class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+                <a href="/" class="logo d-flex align-items-center">
+                    <img
+                        src="{{ url_for('static',filename='custom/logo.png') }}"
+                        alt>
+                    <span>&nbsp;DeepGuard</span>
+                </a>
+
+                <nav id="navbar" class="navbar">
+                    <ul>
+                        <li><a class="nav-link scrollto active"
+                            href="/user">Home</a></li>
+                    <li><a class="nav-link scrollto"
+                            href="/upload">Image</a></li>
+                    <li><a class="nav-link scrollto"
+                            href="/upload_video">Video</a></li>
+                    <li><a class="nav-link scrollto"
+                            href="#about">About</a></li>
+                    <li><a class="nav-link scrollto"
+                            href="#team">Team</a></li>
+                    <li><a class="getstarted scrollto"
+                            href="login">Logout</a></li>
+                    </ul>
+                    <i class="bi bi-list mobile-nav-toggle"></i>
+                </nav>
+                <!-- .navbar -->
+
+            </div>
+        </header>
+        <!-- End Header -->
+        <div class="bgblack" id="front">
+            <div class="bg"></div>
+        </div>
+        <div class="fronttext">
+            We are Committed to cure DeepFake
+        </div>
+        <img class="logopic"
+            src="{{ url_for('static',filename='custom/upload_logo.png') }}">
+        <p class="animated pulse downarrow"><a href="#info"><i
+                    class="fa fa-chevron-circle-down"></i></a></p>
+        <div class="infobg"></div>
+        <div class="info" id="info">
+            <p class="infoup">
+                <a href="#front"><i
+                        class="material-icons">keyboard_arrow_up</i></a>
+            </p>
+            <p class="infohead">
+                We are Here to Help
+            </p>
+
+            <div class="infocols">
+                <div class="infocol">
+                    <p class="infotext infotopic">Symptoms</p>
+                    <p class="infotext">
+                        Our deep fake detection system swiftly identifies subtle
+                        anomalies, such as inconsistent facial expressions and
+                        unnatural audio patterns, ensuring a shield against the
+                        surreptitious intrusion of deceptive content.
+                    </p>
+                </div>
+                <div class="infocol">
+                    <p class="infotext infotopic">Prevention</p>
+                    <p class="infotext">
+                        Empowering users with education and awareness, we strive
+                        to cultivate a digital landscape where vigilance and
+                        skepticism become the first line of defense against the
+                        proliferation of deep fake content.
+                    </p>
+                </div>
+                <div class="infocol infocollast">
+                    <p class="infotext infotopic">Causes</p>
+                    <p class="infotext">
+                        Delving into the intricate web of deep fake origins, our
+                        system unravels the complex interplay of AI manipulation
+                        and malicious intent, aiming to dismantle the roots of
+                        misinformation and restore digital trust.
+                    </p>
+                </div>
+            </div>
+            <p class="infodown">
+                <a href="#upload"><i
+                        class="material-icons">keyboard_arrow_down</i></a>
+            </p>
+        </div>
+        <div class="uploadblack">
+            <div class="uploadbg" id="upload"></div>
+        </div>
+        <div class="upload">
+            <p class="uploadup">
+                <a href="#info"><i
+                        class="material-icons">keyboard_arrow_up</i></a>
+            </p>
+            <p class="uploadhead">
+                DeepFake Detection
+            </p>
+            <p class="uploadtext">
+                Upload your image for processing
+            </p>
+            <center>
+                <input type="file" id="videoFile" accept=".mp4,.avi,.mov"
+                style="padding: 10px 15px; background-color: #4285f4; color: #fff; border-radius: 5px; cursor: pointer;">
+                
+                <button onclick="uploadVideo()"  style="padding: 10px 15px; background-color: #4285f4; color: #fff; border-radius: 5px; cursor: pointer;">Upload Video</button>
+
+                <div id="result">
+                    <!-- Result will be displayed here -->
+                </div>
+                <div class="slider">
+                    <!-- Fake images slider will be displayed here -->
+                </div>
+ 
+                
+
+            </center>
+            <p class="uploadtop">
+                <a href="#front"><i class="material-icons">arrow_upward</i></a>
+            </p>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+        <script>
+            function uploadVideo() {
+                var fileInput = document.getElementById('videoFile');
+                var file = fileInput.files[0];
+                if (!file) {
+                    alert('Please select a video file');
+                    return;
+                }
+    
+                var formData = new FormData();
+                formData.append('video', file);
+    
+                fetch('/detect_deepfake', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    var resultDiv = document.getElementById('result');
+                    resultDiv.innerHTML = `
+                        <h2 style="color: white;">Deepfake Detection Results</h2>
+                        <div class="result-item" style="color: white;">
+                            <span class="result-label" style="color: white;">Fake Frame Count: ${data.fake_frame_count}
+                            </span> </div>
+                        <div class="result-item" style="color: white;">
+                            <span class="result-label" style="color: white;">Real Frame Count: ${data.real_frame_count}
+                        </span> </div>
+                        <div class="result-item" style="color: white;">
+                            <span class="result-label" style="color: white;">Fake Percentage: ${data.fake_percentage.toFixed(2)}%
+                        </span></div>
+                        <div class="result-item" style="color: white;">
+                            <span class="result-label" style="color: white;">Real Percentage: ${data.real_percentage.toFixed(2)}%
+                        </span> </div>
+                    `;
+
+                    var sliderDiv = document.querySelector('.slider');
+                    sliderDiv.innerHTML = '';
+                    if (data.fake_image_paths.length > 0) {
+                        data.fake_image_paths.forEach(imagePath => {
+                            var imageElement = document.createElement('img');
+                            imageElement.src = '/' + imagePath; // Path to serve fake images
+                            imageElement.classList.add('slider-image');
+                            sliderDiv.appendChild(imageElement);
+                        });
+    
+                        $('.slider').slick({
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            arrows: true,
+                            autoplay: true,
+                            autoplaySpeed: 1000
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while processing the video');
+                });
+            }
+
+    
+        </script>
+    </body>
+
+</html>
